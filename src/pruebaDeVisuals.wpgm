@@ -1,0 +1,36 @@
+import wollok.game.*
+
+// Se prueba como la cantidad de visuals en el juego afecta.
+
+
+class Basura {
+
+	const property position = game.at(5, 0)
+
+}
+
+object creadorDeVisuals {
+
+	method crearVisuals(nuevosElementos) {
+		game.clear()
+		game.addVisualCharacter(wollok)
+		(0 .. 9).forEach({ numero => keyboard.num(numero).onPressDo({ self.crearVisuals(numero)})})
+		(1 .. nuevosElementos).forEach({ numero => game.addVisual(new Basura(position = game.at(0, numero)))})
+		game.say(wollok, "Hay " + (nuevosElementos + 1) + " visuals") // +1 por el character tambien
+	}
+
+}
+
+object wollok {
+
+	var property position = game.origin()
+
+}
+
+program abc {
+	game.height(10)
+	game.width(10)
+	game.addVisualCharacter(wollok)
+	(0 .. 9).forEach({ numero => keyboard.num(numero).onPressDo({ creadorDeVisuals.crearVisuals(numero)}) })
+	game.start()
+}

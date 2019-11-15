@@ -1,0 +1,27 @@
+import wollok.game.*
+
+// Se prueba como la cantidad de no wollok objects en una lista afecta (teniendo un onTick adentro de un onTick adentro de un Ontick)
+
+object wollok {
+
+	var property position = game.origin()
+	const lista = []
+
+	method empezarAAcumular() {
+		game.onTick(0, "algo", { lista.add(1)
+			game.onTick(0, "algo", { lista.add(1)
+				game.onTick(0, "algo", { lista.add(1)})
+			})
+		})
+		game.onTick(1000, "decir cantidad de cosas", { game.say(self, lista.size().toString())})
+	}
+
+}
+
+program abc {
+	game.height(10)
+	game.width(10)
+	game.addVisualCharacter(wollok)
+	wollok.empezarAAcumular()
+	game.start()
+}

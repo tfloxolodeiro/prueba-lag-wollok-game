@@ -1,0 +1,29 @@
+import wollok.game.*
+
+// Se prueba como la cantidad de wollok objects en una lista afecta.
+
+class Basura {
+	const property position = game.at(5, 0)
+
+}
+
+object wollok {
+
+	var property position = game.origin()
+	const lista = []
+	
+	method cambiarElementosLista(nuevosElementos){
+		lista.clear()
+		(1..nuevosElementos).forEach({_ => lista.add(new Basura())})
+		game.say(self,"Tengo " + lista.size() + " cosos en la lista")
+	}
+
+}
+
+program abc {
+	game.height(10)
+	game.width(10)
+	game.addVisualCharacter(wollok)
+	(0..9).forEach({numero => keyboard.num(numero).onPressDo({wollok.cambiarElementosLista(numero)})})
+	game.start()
+}
